@@ -9,7 +9,7 @@ class model_news
     public $IP;
     public $errors;
 
-    public function addRecord()
+    public function addRecord($IP)
     {
         if (empty($this->title)) {
             $errors['title'] = 'значение отсутствует!';
@@ -22,15 +22,6 @@ class model_news
         }
         if (empty($this->image_url)) {
             $errors['image_url'] = 'значение отсутствует!';
-        }
-
-        if (empty($this->IP)) {
-            $client = @$_SERVER['HTTP_CLIENT_IP'];
-            $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-            $remote = @$_SERVER['REMOTE_ADDR'];
-            if(filter_var($client, FILTER_VALIDATE_IP)) $IP = $client;
-            elseif(filter_var($forward, FILTER_VALIDATE_IP)) $IP = $forward;
-            else $IP = $remote;
         }
         if (empty($errors)) {
             $connection = (new connect())->database();
